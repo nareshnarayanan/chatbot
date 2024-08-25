@@ -1,5 +1,6 @@
 import streamlit as st
 from openai import OpenAI
+import os
 
 # Show title and description.
 st.title("💬 Chatbot")
@@ -18,7 +19,11 @@ if not openai_api_key:
 else:
 
     # Create an OpenAI client.
-    client = OpenAI(api_key=openai_api_key)
+    client = OpenAI(
+        base_url="https://api.cerebras.ai/v1",
+        api_key=os.environ.get("CEREBRAS_API_KEY")
+    )
+    # client = OpenAI(api_key=openai_api_key)
 
     # Create a session state variable to store the chat messages. This ensures that the
     # messages persist across reruns.
@@ -41,7 +46,7 @@ else:
 
         # Generate a response using the OpenAI API.
         stream = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="llama3.1-8b",
             messages=[
                 {"role": m["role"], "content": m["content"]}
                 for m in st.session_state.messages
