@@ -21,7 +21,7 @@ else:
     # Create an OpenAI client.
     client = OpenAI(
         base_url="https://api.cerebras.ai/v1",
-        api_key=os.environ.get("CEREBRAS_API_KEY")
+        api_key=openai_api_key
     )
     # client = OpenAI(api_key=openai_api_key)
 
